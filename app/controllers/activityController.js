@@ -116,9 +116,9 @@ const activityController = {
         location_id: json.location_id,
       });
       const result = await Activity.findOne({ where: { title: json.title } });
-      // if (req.file) {
-      //   result.dataValues.photo = req.file.filename;
-      // }
+      if (req.file) {
+        result.dataValues.photo = req.file.filename;
+      }
 
       // Upload photo process
       await Photo.create({

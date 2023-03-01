@@ -45,7 +45,7 @@ export const controlUnique = {
     const dataToControl = await Activity.findOne({
       where: { title: json.title },
     });
-    console.log(dataToControl);
+    console.log('RESULT', dataToControl.dataValues);
     if (dataToControl?.dataValues && req?.filename != undefined) {
       unlink(`app/photos/${req.file?.filename}`, (err) => {
         if (err) throw err;
