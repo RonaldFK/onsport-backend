@@ -24,6 +24,7 @@ export const controlUnique = {
       if (req.body?.jsonAsString) {
         jsonAsString = JSON.parse(req.body?.jsonAsString);
       }
+      // controle de l'unicité login et email en BDD.
       if (jsonAsString?.login) {
         const loginToControl = await User.findOne({
           where: { login: jsonAsString?.login },
@@ -36,7 +37,6 @@ export const controlUnique = {
         const emailToControl = await User.findOne({
           where: { email: jsonAsString?.email },
         });
-        // controle de l'unicité login et email en BDD.
         if (emailToControl && emailToControl.id != userId) {
           return res.status(400).json({ Error: 'Cet Email existe déjà' });
         }
@@ -51,7 +51,7 @@ export const controlUnique = {
         if (userPhotoProfil) {
           unlink(`app/photos/${userPhotoProfil?.name}`, (err) => {
             if (err) throw err;
-            console.log('path/file.txt was deleted');
+            console.log('fichier supprimé du serveur');
           });
           await Photo.destroy({ where: { user_id: userId } });
         }
